@@ -16,6 +16,7 @@ Requirements:
 	-> imblearn
 
 You need to change this to make it compatible
+
 --- a/androguard/core/analysis/analysis.py
 +++ b/androguard/core/analysis/analysis.py
 @@ -1403,7 +1403,7 @@ class Analysis:
