@@ -1,10 +1,17 @@
 # MLwakelockleak
 Requirements:
--> Networkx
--> Numpy
--> Androgurad
--> TQDM
--> skLearn
--> Matplot
--> imblearn
+
+	-> Networkx
+
+	-> Numpy
+
+	-> Androgurad
+
+	-> TQDM
+
+	-> skLearn
+
+	-> Matplot
+
+	-> imblearn
 
