@@ -1,7 +1,7 @@
 # MLwakelockleak
 Requirements:
 
-	-> Networkx
+	-> Networkx (2.3)
 
 	-> Numpy
 
