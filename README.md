@@ -15,4 +15,4 @@ Requirements:
 
 	-> imblearn
 
-You need to change this to make it compatible see: https://github.com/androguard/androguard/issues/769
+You need to make suggested changes to make it work see: https://github.com/androguard/androguard/issues/769
