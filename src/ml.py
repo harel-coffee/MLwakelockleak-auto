@@ -1,7 +1,3 @@
-#!/usr/bin/python # ADAGIO Android Application Graph-based Classification
-# ml >> functions for computation of kernel matrices and feature vectors
-# Copyright (c) 2013 Hugo Gascon <hgascon@uni-goettingen.de>
-
 import numpy as np
 import scipy as sp
 import networkx as nx
@@ -204,29 +200,6 @@ def random_walk_kernel(g1, g2, parameter_lambda, node_attribute='label'):
     return k
 
 
-def rwk_example():
-    g = nx.Graph()
-    g.add_node(1, color='b')
-    g.add_node(2, color='w')
-    g.add_node(3, color='b')
-    g.add_node(4, color='w')
-    g.add_edges_from([(1, 4), (1, 2), (1, 3), (2, 3), (3, 4)])
-
-    g1 = nx.Graph()
-    g1.add_node('a', color='b')
-    g1.add_node('b', color='b')
-    g1.add_node('c', color='b')
-    g1.add_edges_from([('a', 'b'), ('b', 'c')])
-
-    g2 = nx.Graph()
-    g2.add_node('a', color='w')
-    g2.add_node('b', color='b')
-    g2.add_node('c', color='w')
-    g2.add_edges_from([('a', 'b'), ('b', 'c')])
-
-    print("rwk(g,g1) = {0}".format(random_walk_kernel(g, g1, 0.1, 'color')))
-    print("rwk(g,g2) = {0}".format(random_walk_kernel(g, g2, 0.1, 'color')))
-
 
 #################################
 # Auxiliary Functions on Graphs #
@@ -321,23 +294,6 @@ def xor_neighborhood_hash(g):
 
     return gnh
 
-# pybloom in moment not available for Python 3
-# def bloom_filter_hash(g, c, e):
-#     """ Compute the bloom filter neighborhood hashed version of a graph.
-#     """
-#
-#     gnh = g.copy()
-#
-#     for node in iter(g.nodes()):
-#         node_label = g.node[node]["label"]
-#         neighbors_labels = [g.node[n]["label"] for n in g.neighbors_iter(node)]
-#         neighbors_labels.append(node_label)
-#         f = BloomFilter(capacity=c, error_rate=e)
-#         [f.add(l) for l in neighbors_labels]
-#         nh = f.bitarray
-#         gnh.node[node]["label"] = nh
-#
-#     return gnh
 
 
 def array_labels_to_str(g):
@@ -392,7 +348,7 @@ def neighborhood_size_distribution(g):
 def make_binary(X):
     """ Transforms every element in X in a binary vector of n ones and m-n zeros
     where n is the value of the element and m is the maximum element in X.
- 
+
     Args:
         X: a (N,M) matrix or array
 

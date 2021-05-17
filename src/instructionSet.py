@@ -1,8 +1,3 @@
-#!/usr/bin/python
-# ADAGIO Android Application Graph-based Classification
-# instructionSet.py >> Dalvik intstruction set and corresponding categories
-# Copyright (c) 2013 Hugo Gascon <hgascon@uni-goettingen.de>
-
 INSTRUCTION_CLASS_COLOR = {
 	'nop': 0,
 	'move': 1,

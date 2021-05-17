@@ -85,13 +85,8 @@ def apply_naive_bayes(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("Naive-Bayes Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
+
     return accuracy
 
 
@@ -107,13 +102,7 @@ def apply_linear_SVC(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("LinearSVC Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -129,13 +118,7 @@ def apply_K_Neighbors_Classifier(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("KNeighbors Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -151,13 +134,7 @@ def apply_Ridge_Classifier(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("Ridge Classifier Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -173,13 +150,7 @@ def apply_Bagged_Decision_Tree(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("BDT Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -195,13 +166,7 @@ def apply_Random_Forest(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("Random Forest Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -217,13 +182,7 @@ def apply_Gradient_Boosting(X_train, Y_train, X_test, Y_test):
     from sklearn.metrics import classification_report
     report = classification_report(Y_test, predicted)
     print("Gradient Boosting Report: ", report)
-    show_confusion_matrix(Y_test, result.predict(X_test))
     label_show_confusion_matrix(Y_test, result.predict(X_test))
-    plot_roc_curve(clf, X_test, Y_test)
-    plot_precision_recall_curve(clf, X_test, Y_test)
-    # show_confusion_matrix(Y_test, result.predict(X_test))
-    # plot_roc_curve(clf, X_test, Y_test)
-    # plot_precision_recall_curve(clf, X_test, Y_test)
     return accuracy
 
 
@@ -239,7 +198,7 @@ def random_over_sampling(X, y):
 def smote_over_sampling(X, y):
     from imblearn.over_sampling import SMOTE
     smote = SMOTE(sampling_strategy='minority')#(ratio='minority') ##/////////Not working at ratio
-    X_sm, y_sm = smote.fit_sample(X, y)
+    X_sm, y_sm = smote.fit_resample(X, y)
 
     # plot_2d_space(X_sm, y_sm, 'SMOTE over-sampling')
     return X_sm, y_sm
@@ -318,7 +277,6 @@ def randomize_dataset(X, Y):
         """
         n = len(Y)
         train_size = int(0.8 * n)
-        # index = range(n) ##/////////////////Orignal//////////
         index = list(range(n))  ##/////////////////Changed//////////
         print(n, train_size, index)
         from random import shuffle
@@ -334,7 +292,7 @@ def randomize_dataset(X, Y):
         print("test=", len(Y_test))
         return X_train, X_test, Y_train, Y_test
 
-def check_smote(X, y):
+def check_smote(X_smt, y_smt):
     nb_list = []
     sv_list = []
     knr_list = []
@@ -373,11 +331,14 @@ def check_smote(X, y):
     plt.title('Model Accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Iteration')
-    plt.legend(['Naive-Bay', 'Linear SVC', 'K-Neighbor', 'Logistic Regression', 'Ridge Classifier', 'Bagged Decision Tree', 'Random Forest', 'Stochastic Gradient Boosting'])
+    plt.legend(['Naive-Bay', 'Linear SVC', 'K-NearNeighbor', 'Logistic Regression', 'Ridge Classifier', 'Bagged Decision Tree', 'Random Forest', 'Stochastic Gradient Boosting'])
     plt.show()
 from numpy import load
-def load_data_plot(x_data='X_test.npz', y_data='Y_test.npz'):
+def load_data_plot(path, x_data='X_test.npz', y_data='Y_test.npz'):
     ##//////////////////No SMOTE applied X and y////////////////////////////////
+    import os
+    x_data = os.path.join(os.getcwd()+path, x_data)
+    y_data = os.path.join(os.getcwd()+path, y_data)
     dict_data = load(x_data)
     X_smt = dict_data['arr_0']
     dict_lbl = load(y_data)

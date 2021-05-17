@@ -1,6 +1,3 @@
-# ADAGIO Structural Analysis of Android Binaries
-# Copyright (c) 2014 Hugo Gascon <hgascon@mail.de>
-
 """ A module to build NX graph objects from APKs. """
 
 import zipfile
@@ -40,9 +37,7 @@ class FCG(): ##/////////////Changed for testing/////////////////////
 
         self.d.set_vmanalysis(self.dx)
         self.dx.create_xref()
-        print("Creating FCG")
         self.fcg = self.build_fcg()
-        print("Finish FCG")
 
     def get_fcg(self):
         return self.fcg
@@ -68,10 +63,8 @@ class FCG(): ##/////////////Changed for testing/////////////////////
         """
         fcg = self.get_lock_graph() ##/////////My changes///////////////
 
-        print("type=",type(fcg))
         for n in fcg.nodes:
             instructions = []
-            # print(n)
             try:
                 ops = n.get_instructions()
                 for i in ops:
@@ -79,6 +72,7 @@ class FCG(): ##/////////////Changed for testing/////////////////////
                 encoded_label = self.color_instructions(instructions)
             except AttributeError:
                 encoded_label = np.array([0] * 15)
+
             fcg.node[n]["label"] = encoded_label
         return fcg
 
@@ -157,7 +151,8 @@ def process_dir(read_dir, out_dir, mode='FCG'):
     APKs in a dir subtree and create graph objects that are pickled
     for later processing and learning.
     """
-    read_dir = os.getcwd()+read_dir
+    read_dir = os.getcwd() + read_dir
+    out_dir = os.getcwd() + out_dir
     sys.setrecursionlimit(100000)
     files = []
 
@@ -169,7 +164,7 @@ def process_dir(read_dir, out_dir, mode='FCG'):
     # loop through .apk files and save them in .pdg.pz format
     print("\nProcessing {} APK files in dir {}".format(len(files), read_dir))
     for f in tqdm(files):
-
+        # nx.DiGraph().nodes
         f = os.path.realpath(f)
         print('[] Loading {0}'.format(f))
         try:

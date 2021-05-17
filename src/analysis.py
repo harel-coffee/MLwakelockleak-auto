@@ -41,6 +41,7 @@ class Analysis:
         self.neighborhood_sizes = []
         self.class_dist = np.zeros(15)
         self.predictions = []
+        self.fnames = []
 
         for d in zip(dirs, labels):
             files = self.read_files(d[0], "pz", max_files)
@@ -74,11 +75,11 @@ class Analysis:
                     print("err: {0}".format(f))
                     pass
 
-            # convert feature vectors to its binary representation
-            # and make the data matrix sparse
-            print("[*] Stacking feature vectors...")
-            self.X = np.array(self.X, dtype=np.int32)
-            print("X=", self.X.shape)
+        # convert feature vectors to its binary representation
+        # and make the data matrix sparse
+        print("[*] Stacking feature vectors...")
+        self.X = np.array(self.X, dtype=np.int32)
+        print("X=", self.X.shape)
 
     ################################
     # Data Preprocessing functions #
@@ -98,6 +99,7 @@ class Analysis:
         """
 
         files = []
+        d = os.getcwd()+d
         for f in os.listdir(d):
             if f.lower().endswith(file_extension):
                 files.append(os.path.join(d, f))
@@ -125,10 +127,10 @@ class Analysis:
             in a new experiment without the need to extract all
             features again
         """
-        x_path = os.path.join(path, x_name)
-        y_path = os.path.join(path, y_name)
-        fnames_path = os.path.join(path, 'fnames.npz')
-        print("[*] Saving labels, data matrix and file names...")
+        x_path = os.getcwd()+path+r'\\'+x_name
+        y_path = os.getcwd()+path+r'\\'+y_name
+        fnames_path = os.getcwd()+path+r'\fnames.npz'
+        print("[*] Saving labels, data matrix and file names at...",x_path)
         np.savez_compressed(x_path, self.X)
         np.savez_compressed(y_path, self.Y)
         np.savez_compressed(fnames_path, self.fnames)
